@@ -1,0 +1,62 @@
+<html>
+<table id="myTable" class="table table-borderless table-striped table-earning">
+    <thead>
+        <tr>
+            <th>productId</th>
+            <th>productName</th>
+            <th>productPrice</th>
+        </tr>
+    </thead>
+    <tbody id="testBody"></tbody>
+</table>
+<script>
+
+    function getOperation() {
+        fetch("http://localhost:8080/operate", {
+            // Adding method type
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors', // no-cors, *cors, same-origin
+            // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            // credentials: 'same-origin', // include, *same-origin, omit
+            // redirect: 'follow', // manual, *follow, error
+            // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            // // Adding body or contents to send
+            body: JSON.stringify({
+                "operation": "INSERT",
+                "productDetails": {
+                    "productId": "key4",
+                    "productName": "bread3",
+                    "price": 78
+                }
+            }),
+        }).then(response => response.json()).then(json => console.log(json)).catch()
+
+    }
+    getOperation();
+    const items1 = [{
+        date: "y", name: "yy", price: 99
+    }]
+    function loadTableData(items) {
+        const table = document.getElementById("testBody");
+        items.forEach(item => {
+            let row = table.insertRow();
+            let date = row.insertCell(0);
+            date.innerHTML = item.date;
+            let name = row.insertCell(1);
+            name.innerHTML = item.name;
+            let price = row.insertCell(2);
+            price.innerHTML = item.price;
+        });
+    }
+    loadTableData(items1);
+    loadTableData([]);
+
+
+
+</script>
+
+</html>
